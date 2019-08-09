@@ -9,6 +9,7 @@ var chartWidth = Math.min(600,d3.select("#content").node().offsetWidth*.9) - mar
 var chartHeight = Math.min(500,d3.select("#content").node().offsetHeight*.5) - margin.top - margin.bottom;
 var yearColumns = null;
 var songs = null;
+var svg = null;
 
 function highlightRegister(toggle){
   yearColumns.selectAll(".year-col").style("display",function(d){
@@ -42,48 +43,37 @@ function shiftChart(direction){
       }
       return null;
     })
-    .each(function(d){
+
       if(direction=="up"){
-        d3.select(this).select("svg")
+        svg
           .transition()
           .duration(1500)
-          .style("opacity",.5);
+          .style("opacity",0);
 
-        d3.select(this).select(".song-names")
+        container.select(".song-names")
           .transition()
           .duration(1500)
           .style("opacity",1);
       }
-      else{
-        d3.select(this).select("svg")
+      else if (direction == "down"){
+        svg
           .transition()
           .duration(1500)
           .style("opacity",null);
 
-        d3.select(this).select(".song-names")
+        container.select(".song-names")
           .transition()
           .duration(1500)
           .style("opacity",null);
       }
-    })
 }
 
 function fadeInLine(){
-  function transition(path) {
-    path.transition()
-      .duration(2500)
-      .delay(500)
-      .attrTween("stroke-dasharray", tweenDash)
-      //.each("end", function() { d3.select(this).call(transition); });
-  }
-
-  function tweenDash() {
-    var l = this.getTotalLength(),
-        i = d3.interpolateString("0," + l, l + "," + l);
-    return function(t) { return i(t); };
-  }
-
-  path.call(transition);
+  path
+    .transition()
+    .duration(2500)
+    .delay(750)
+    .attr("stroke-dashoffset", 0);
 }
 
 function fadeAnnotation(year){
@@ -133,7 +123,7 @@ function init(dataToLoad){
 
   container = d3.select("#year-chart").select(".chart")
 
-  var svg = container.append("svg")
+  svg = container.append("svg")
     .attr("width",chartWidth+margin.left+margin.right)
     .attr("height",chartHeight+margin.top+margin.bottom)
     .style("width",chartWidth+margin.left+margin.right+"px")
@@ -145,6 +135,11 @@ function init(dataToLoad){
   path = g.append("path")
     .attr("d",line)
     ;
+
+    var totalLength = path.node().getTotalLength();
+
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
 
   annotations = g.append("g")
     .attr("class","annotations-container")
@@ -171,6 +166,24 @@ function init(dataToLoad){
       return +d.year
     })
     ;
+
+  svg.append("g")
+    .attr("transform","translate(0,"+margin.top+")")
+    .attr("class","num-container")
+    .selectAll("g")
+    .data(d3.range(Math.round(avgExtent[0]),Math.round(avgExtent[1])+1,.5))
+    .enter()
+    .append("g")
+    .attr("transform",function(d){
+      return "translate(0,"+yScale(d)+")"
+    })
+    .append("text")
+    .text(function(d){
+      return d;
+    })
+    ;
+
+
 
   var axis = g.append("g")
     .attr("transform","translate(0,"+chartHeight+")")

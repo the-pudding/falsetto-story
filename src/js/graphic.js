@@ -207,11 +207,7 @@ function changeYearChart(){
     year.fadeAnnotation(1984)
   }
 
-  console.log(idCount);
-
-  if(idCount < 2){
-
-    year.shiftChart("down")
+  if(idCount < 1){
 
     d3.select("#year-chart")
       .select(".background-image")
@@ -220,10 +216,9 @@ function changeYearChart(){
       .style("opacity",null)
       ;
   }
-  else if(idCount == 2){
+  else if(idCount == 1){
 
-    year.shiftChart("up")
-    year.highlightRegister(false)
+    year.shiftChart("down")
 
     d3.select("#year-chart")
       .select(".background-image")
@@ -232,10 +227,14 @@ function changeYearChart(){
       .style("opacity",1)
       ;
   }
+  else if(idCount == 2){
+    year.shiftChart("up")
+    year.highlightRegister(false)
+  }
 
   if(idCount == 3){
     year.highlightRegister(true)
-    year.compareChart(false,[1984,2008])
+    year.compareChart(false,[1984,2017])
   }
 
   if(idCount == 4){
@@ -391,23 +390,23 @@ var cardNames = [
   {
     id:"year-2",
     card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/60ee8f279faea3434bb2a3dc418b494aeafd9a95.mp3"
+    audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
   },
   {
     id:"year-3",
     card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/60ee8f279faea3434bb2a3dc418b494aeafd9a95.mp3"
+    audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
   },
   {
     id:"year-4",
     card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/60ee8f279faea3434bb2a3dc418b494aeafd9a95.mp3"
+    audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
   }
 ];
 
 var cardSequence = null;
-var currentCard = 2;
-var currentId = "jonas"
+var currentCard = 0;
+var currentId = "intro"
 var currentSound = null;
 var currentSoundTrack = "none";
 

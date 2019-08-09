@@ -129,23 +129,28 @@
           background white
           color black
           font-weight 600
+          line-height 1.5
+          b
+            color black
+            background #04ffc5
   .chart
     position relative
     .arrow
       position absolute
-      top 10px
+      top 0px
       width 90%
       margin 0 auto
       left 0px
       right 0px
       svg
         stroke white
-        width 20px
+        width 15px
         display block
         margin 0
       p
         font-size 12px
         text-transform capitalize
+        margin-top -5px
     .song-names
       //display flex
       width 90%
@@ -163,7 +168,7 @@
           font-size 12px
           font-weight 600
           margin-right 5px
-          line-height 1.1
+          line-height 1
           margin-bottom 5px
           transition all 1s
           span
@@ -190,12 +195,15 @@
           opacity 1
           span
             opacity 1
-            background #373c04
-
-
+            color #04ffc5
     svg
       display block
       margin 0 auto
+      .num-container
+        text
+          fill white
+          font-family $atlas
+          font-size 14px
       .annotations-container
         g
           opacity 0

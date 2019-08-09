@@ -103,7 +103,7 @@ function init(data){
           d3.select(this).append("p")
             .attr("class","annotation")
             .append("span")
-            .text("Barry White would be here")
+            .html("Barry White&rsquo;s register")
             .style("background-color",function(d){
               return d3.interpolateWarm(scaleShift(+d.key));
             })
@@ -113,7 +113,7 @@ function init(data){
           d3.select(this).append("p")
             .attr("class","annotation")
             .append("span")
-            .text("Love Rollercoaster would be here")
+            .html("Pony&rsquo;s register")
             .style("background-color",function(d){
               return d3.interpolateWarm(scaleShift(+d.key));
             })
