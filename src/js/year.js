@@ -44,28 +44,28 @@ function shiftChart(direction){
       return null;
     })
 
-      if(direction=="up"){
-        svg
-          .transition()
-          .duration(1500)
-          .style("opacity",0);
+    if(direction=="up"){
+      svg
+        .transition()
+        .duration(1500)
+        .style("opacity",0);
 
-        container.select(".song-names")
-          .transition()
-          .duration(1500)
-          .style("opacity",1);
-      }
-      else if (direction == "down"){
-        svg
-          .transition()
-          .duration(1500)
-          .style("opacity",null);
+      container.select(".song-names")
+        .transition()
+        .duration(1500)
+        .style("opacity",1);
+    }
+    else if (direction == "down"){
+      svg
+        .transition()
+        .duration(1500)
+        .style("opacity",null);
 
-        container.select(".song-names")
-          .transition()
-          .duration(1500)
-          .style("opacity",null);
-      }
+      container.select(".song-names")
+        .transition()
+        .duration(1500)
+        .style("opacity",null);
+    }
 }
 
 function fadeInLine(){
@@ -80,6 +80,7 @@ function fadeAnnotation(year){
   annotations
     .transition()
     .duration(1000)
+    .delay(1000)
     .style("opacity",function(d){
       if(d.year == year){
         return 1;

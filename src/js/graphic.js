@@ -231,14 +231,20 @@ function changeYearChart(){
     year.shiftChart("up")
     year.highlightRegister(false)
   }
-
+  console.log(idCount);
   if(idCount == 3){
     year.highlightRegister(true)
-    year.compareChart(false,[1984,2017])
+    year.compareChart(false,[1984])
   }
 
   if(idCount == 4){
-    year.compareChart(true)
+    year.compareChart(true,[1984,2017])
+  }
+  if(idCount == 5){
+    year.compareChart(false,[1984])
+    year.shiftChart("down")
+    year.highlightRegister(false)
+    year.fadeAnnotation(1987)
   }
 
 
@@ -399,6 +405,11 @@ var cardNames = [
   },
   {
     id:"year-4",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
+  },
+  {
+    id:"year-5",
     card:"year-chart",
     audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
   }
