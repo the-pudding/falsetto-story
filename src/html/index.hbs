@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang='en' data-version='{{timestamp}}'>
+
+<head>
+
+	{{> base/meta}}
+
+	<link inline rel='stylesheet' href='bundle.css' />
+
+	{{> base/font}}
+
+
+	<script inline src='head.js'></script>
+
+	{{> base/analytics }}
+
+</head>
+
+<body>
+
+	<main id='content'>
+
+		{{> story/intro }}
+		{{!-- delete guide and put your html here --}}
+
+	</main>
+
+	<script src='{{basepath}}assets/scripts/d3.v5.9.1.min.js'></script>
+	<script src='main.js?version={{timestamp}}' async></script>
+</body>
+
+</html>
