@@ -331,57 +331,57 @@ function changeYearChart(){
     year.highlightSong(["Got To Give It Up (Pt. I)","We Are The Champions","Sir Duke","Cold As Ice"],1977)
 
   }
+  // if(idCount == 9){
+  //   year.shiftChart("down")
+  //   year.fadeAnnotation(1970)
+  //   year.changeBackground("")
+  // }
+  // if(idCount == 10){
+  //   year.shiftChart("up")
+  //   year.compareChart(false,[1970])
+  //   year.highlightSong(["The Tears Of A Clown","Cecilia","ABC","I'll Be There","Immigrant Song"],1977)
+  // }
   if(idCount == 9){
-    year.shiftChart("down")
-    year.fadeAnnotation(1970)
-    year.changeBackground("")
-  }
-  if(idCount == 10){
-    year.shiftChart("up")
-    year.compareChart(false,[1970])
-    year.highlightSong(["The Tears Of A Clown","Cecilia","ABC","I'll Be There","Immigrant Song"],1977)
-  }
-  if(idCount == 11){
     year.shiftChart("down")
     year.fadeAnnotation(1962)
     year.changeBackground("https://media.giphy.com/media/26FxKEkdhEECnwEYE/giphy.gif")
   }
-  if(idCount == 12){
+  if(idCount == 10){
     year.fadeAnnotation(2010)
     year.changeBackground("")
     year.shiftChart("down")
   }
-  if(idCount == 13){
+  if(idCount == 11){
     year.shiftChart("up")
     year.compareChart(false,[2010])
     year.highlightSong(["Just The Way You Are","Baby","Grenade","The Lazy Song","U Smile", "Never Let You Go"],2010)
   }
-  if(idCount == 14){
+  if(idCount == 12){
     year.shiftChart("down")
     year.fadeAnnotation(2019)
     year.filterForTop10(false)
     year.changeBackground("")
   }
-  if(idCount == 15){
+  if(idCount == 13){
     year.filterForTop10(true)
     year.fadeTopAnnotation("")
     year.fadeAnnotation("")
   }
-  if(idCount == 16){
+  if(idCount == 14){
     year.fadeTopAnnotation(2019)
     year.shiftChart("down")
   }
-  if(idCount == 17){
+  if(idCount == 15){
     year.shiftChart("up")
     year.compareChart(false,[2019])
     year.highlightTopOnly(false)
   }
-  if(idCount == 18){
+  if(idCount == 16){
     year.highlightTopOnly(true)
     year.highlightSong(["Talk"],2019)
     year.shiftChart("up")
   }
-  if(idCount == 19){
+  if(idCount == 17){
     year.shiftChart("down")
   }
 
@@ -589,30 +589,41 @@ var cardNames = [
     card:"year-chart",
     audio:"https://p.scdn.co/mp3-preview/760acd645ebaa00533bb73e20627da437a4a5142.mp3"
   },
+  // ,
+  // {
+  //   id:"year-9",
+  //   card:"year-chart",
+  //   audio:"none"
+  // },
+  // {
+  //   id:"year-10",
+  //   card:"year-chart",
+  //   audio:"https://p.scdn.co/mp3-preview/39d220117c9e65f09cda2df24066d1154647f407.mp3"
+  // },
   {
     id:"year-9",
-    card:"year-chart",
-    audio:"none"
-  },
-  {
-    id:"year-10",
-    card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/39d220117c9e65f09cda2df24066d1154647f407.mp3"
-  },
-  {
-    id:"year-11",
     card:"year-chart",
     audio:"https://p.scdn.co/mp3-preview/3d1e5ad6cca790e85e25396adc39d5506c2bc2ab.mp3"
   },
   {
-    id:"year-12",
+    id:"year-10",
     card:"year-chart",
     audio:""
   },
   {
-    id:"year-13",
+    id:"year-11",
     card:"year-chart",
     audio:"https://p.scdn.co/mp3-preview/a7457c94f24ced0115c865b325e031ea6fb2a964.mp3"
+  },
+  {
+    id:"year-12",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-13",
+    card:"year-chart",
+    audio:"none"
   },
   {
     id:"year-14",
@@ -627,7 +638,7 @@ var cardNames = [
   {
     id:"year-16",
     card:"year-chart",
-    audio:"none"
+    audio:"https://p.scdn.co/mp3-preview/2fb54a9c23ec3124319df5739aa081bf9183fa8b.mp3"
   },
   {
     id:"year-17",
@@ -636,16 +647,6 @@ var cardNames = [
   },
   {
     id:"year-18",
-    card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/2fb54a9c23ec3124319df5739aa081bf9183fa8b.mp3"
-  },
-  {
-    id:"year-19",
-    card:"year-chart",
-    audio:"none"
-  },
-  {
-    id:"year-20",
     card:"year-chart",
     audio:"none"
   },
