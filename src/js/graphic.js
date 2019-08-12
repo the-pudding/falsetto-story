@@ -421,7 +421,7 @@ function changeChart(direction){
     }
   }
 
-  if(cardNames[currentCard].audio != "none" && currentSoundTrack != cardNames[currentCard].audio) {
+  if(cardNames[currentCard].audio != "none" && cardNames[currentCard-1].audio != cardNames[currentCard].audio) {
     playSound();
   }
 
@@ -679,8 +679,7 @@ function playSound(){
     src: [cardNames[currentCard].audio],
     volume:.8,
     html5: false,
-    loop:false
-    ,
+    loop:false,
     onload: function(d){
       console.log("loaded"+cardNames[currentCard].id);
       var thisSource = this._src;

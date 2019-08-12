@@ -1,17 +1,17 @@
 {
-	"title": "Title Case Hed Goes Here",
-	"description": "Sentence case dek goes down here. Modify these in data/meta.json.",
+	"title": "The year when Men’s singing voices were highest in pop music",
+	"description": "Men’s voices in pop music, these days, seem really high. Using data, when was vocal register the highest?",
 	"site": "https://pudding.cool",
 	"siteName": "The Pudding",
-	"url": "https://pudding.cool/year/month/name/",
-	"keywords": "tk",
-	"imgFacebook": "https://pudding.cool/year/month/name/assets/social/social-facebook.jpg",
-	"imgTwitter": "https://pudding.cool/year/month/name/assets/social/social-twitter.jpg",
+	"url": "https://pudding.cool/2019/08/register/",
+	"keywords": "music",
+	"imgFacebook": "https://pudding.cool/2019/08/register/assets/social/social-facebook.jpg",
+	"imgTwitter": "https://pudding.cool/2019/08/register/assets/social/social-twitter.jpg",
 	"author": {
 		"name": "The Pudding",
-		"url": "https://pudding.cool/author/the-pudding-team",
-		"twitterHandle": "@puddingviz"
+		"url": "https://pudding.cool/author/matt-daniels",
+		"twitterHandle": "@matthew_daniels"
 	},
-	"analytics": "",
+	"analytics": "UA-90567923-1",
 	"lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis neque sit amet sollicitudin vehicula. Maecenas fringilla mi non lacus mattis elementum. Curabitur dignissim faucibus justo."
 }
