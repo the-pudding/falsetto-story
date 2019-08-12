@@ -449,10 +449,12 @@ function changeChart(direction){
     lyricsCount = 0;
 
     interval = window.setInterval(function(d){
-      var value = lastAudio.seek();
-      if(value > lyricsStamps[lyricsCount + 1]){
-        lyricsCount = lyricsCount + 1;
-        changeWord();
+      if(lastAudio){
+        var value = lastAudio.seek();
+        if(value > lyricsStamps[lyricsCount + 1]){
+          lyricsCount = lyricsCount + 1;
+          changeWord();
+        }
       }
     },100)
 
@@ -650,6 +652,11 @@ var cardNames = [
     id:"year-20",
     card:"year-chart",
     audio:"none"
+  },
+  {
+    id:"outro-1",
+    card:"outro",
+    audio:"none"
   }
 
 ];
@@ -671,11 +678,10 @@ window.onblur = function() {
 
 function playSound(){
 
-
   const newSound = new Howl({
     src: [cardNames[currentCard].audio],
-    volume:1,
-    html5: false,
+    volume:.8,
+    html5: true,
     loop:false
     // ,
     // onLoad: function(){
@@ -684,7 +690,8 @@ function playSound(){
     //     newSound.play();
     //     lastAudio = audio
     //   }
-    // }
+    }
+
   });
   currentSoundTrack = cardNames[currentCard].audio
   stopLastAudio()
