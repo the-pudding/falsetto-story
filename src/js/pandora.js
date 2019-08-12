@@ -5,6 +5,8 @@ var songs = null;
 var container = null;
 var avgLine = null;
 
+//var colorScale = d3.scaleLinear().domain([2,10]).range(["#FF9D0A","#ef6336"])
+
 function fadeInBars(){
   songs
     .transition()
@@ -105,7 +107,7 @@ function init(data){
             .append("span")
             .html("Barry White&rsquo;s register")
             .style("background-color",function(d){
-              return d3.interpolateWarm(scaleShift(+d.key));
+              return d3.interpolateCool(scaleShift(+d.key));
             })
             .style("color","white")
         }
@@ -115,7 +117,7 @@ function init(data){
             .append("span")
             .html("Pony&rsquo;s register")
             .style("background-color",function(d){
-              return d3.interpolateWarm(scaleShift(+d.key));
+              return d3.interpolateCool(scaleShift(+d.key));
             })
 
         }
@@ -131,7 +133,7 @@ function init(data){
     .attr("class","song")
     .style("background-color",function(d){
       var key = d3.select(this.parentNode).datum().key;
-      return d3.interpolateWarm(scaleShift(key));
+      return d3.interpolateCool(scaleShift(key));
     })
     ;
 

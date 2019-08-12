@@ -11,6 +11,8 @@ var lyricsContainer = null;
 var lyricsStamps = null;
 var lyricsVals = [0];
 var lyricsCount = 0;
+var lyricsTwo = null;
+
 
 function resize() {}
 
@@ -20,7 +22,66 @@ function playLyrics(){
   var yScale = d3.scaleLinear().domain([1,10]).range([20,80])
   var scale = d3.scaleLinear().domain([1,10]).range([1.1,1.5])
 
-  lyrics = [
+  var lyricsMendes = [
+    ["about",0,8],
+    ["you",0.55,6],
+    ["is",1.1,7],
+    ["it",1.5,6],
+    ["too",1.95,7],
+    ["late",2.4,6],
+    ["to",2.9,7],
+    ["tell",3.25,7],
+    ["you",3.6,8],
+    ["that",3.8,8],
+    ["every",4.3,10],
+    ["thing",4.7,9],
+    ["means",5,9.5],
+    ["nothing",5.3,9],
+    ["If I",5.7,5],
+    ["can't",6.4,5],
+    ["have",6.85,5],
+    ["you",7.15,7],
+    ["I",8.4,6],
+    ["can't",9,6],
+    ["write",9.4,5],
+    ["one",10,6],
+    ["song",10.4,5],
+    ["that's",10.8,6],
+    ["not",11.3,6],
+    ["about",11.7,7],
+    ["you",12.3,5],
+    ["can't",12.9,6],
+    ["drink",13.3,5],
+    ["without",13.85,6],
+    ["thinking",14.8,6],
+    ["about",15.5,8],
+    ["you",16.2,6],
+    ["is",16.7,7],
+    ["it",17.4,6],
+    ["too",17.8,7],
+    ["late",18.2,6],
+    ["to",18.7,7],
+    ["tell",19.1,7],
+    ["you that",19.7,8],
+    ["every",20.2,10],
+    ["thing",20.7,9],
+    ["means",21,9.5],
+    ["nothing",21.3,9],
+    ["If I",21.65,5],
+    ["can't",22.1,5],
+    ["have",22.6,5],
+    ["you",23.1,7],
+    ["I'm so",25.9,4],
+    ["sorry",26.4,5],
+    ["that my",27,4],
+    ["timing's",27.4,4],
+    ["off",28.2,4],
+    ["but I",28.8,4],
+    ["can't",29.2,5],
+    ["move",29.7,5]
+  ]
+
+  var lyricsJonas = [
     ["you",0,5],
 ["yeah",1.3,4],
 ["any road",2.2,6],
@@ -64,16 +125,33 @@ function playLyrics(){
 ["for",20.34,5],
 ["you",20.9,6],
 ["yeah",22.5,4]  ];
-  lyricsContainer = d3.select("#jonas").select(".lyrics").select(".lyric")
-  lyricsContainer.select("p").text("you");
+
+  if(currentId == "mendes"){
+    lyrics = lyricsMendes;
+  }
+  else {
+    lyrics = lyricsJonas;
+  }
+
+
+
+  lyricsContainer = d3.select("#"+currentId).select(".lyrics").select(".lyric")
+  lyricsContainer.select("p").text(function(d){
+    if(currentId == "jonas"){
+      return "you"
+    }
+    return "about"
+  });
   lyricsStamps = lyrics.map(function(d){return d[1]});
   lyricsContainer
     .style("bottom",yScale(lyrics[lyricsCount][2])+"%")
     .select("p")
     .text(lyrics[lyricsCount][0])
     .style("transform","scale("+scale(lyrics[lyricsCount][2])+")")
-    .style("color",d3.interpolateWarm(lyrics[lyricsCount][2]/10))
+    .style("color",d3.interpolateCool(lyrics[lyricsCount][2]/10))
     ;
+
+    console.log(lyricsContainer.node());
 
 }
 
@@ -86,16 +164,16 @@ function changeWord(){
     .select("p")
     .text(lyrics[lyricsCount][0])
     .style("transform","scale("+scale(lyrics[lyricsCount][2])+")")
-    .style("color",d3.interpolateWarm(lyrics[lyricsCount][2]/10))
+    .style("color",d3.interpolateCool(lyrics[lyricsCount][2]/10))
     ;
 
   if(lyricsCount > 0 && lyrics[lyricsCount][2] > lyrics[lyricsCount - 1][2]){
-    d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-down").style("display","none")
-    d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-up").style("display","block")
+    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-down").style("display","none")
+    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-up").style("display","block")
   }
   else if (lyricsCount > 0 && lyrics[lyricsCount][2] < lyrics[lyricsCount - 1][2]){
-    d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-down").style("display","block")
-    d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-up").style("display","none")
+    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-down").style("display","block")
+    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-up").style("display","none")
   }
   // else if(lyricsCount > 0 && lyrics[lyricsCount][2] == lyrics[lyricsCount - 1][2]){
   //   d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-down").style("display","none")
@@ -134,6 +212,10 @@ function changePandora(){
 }
 
 function changeIntro(){
+
+  d3.select(".footer").select(".author").style("display","block")
+  d3.select(".footer").select(".logo").style("display","none")
+
   var id = cardNames[currentCard].id;
   var idCount = +id.split("-")[1];
   var container = d3.select("#"+currentId);
@@ -198,55 +280,115 @@ function changeYearChart(){
     return 0;
   })
 
+  console.log(idCount);
+
   if(idCount == 0){
-    year.fadeAnnotation("none")
+    year.fadeAnnotation(2019)
     year.fadeInLine();
+    year.changeBackground("")
   }
 
   if(idCount == 1){
-    year.fadeAnnotation(1984)
-  }
-
-  if(idCount < 1){
-
-    d3.select("#year-chart")
-      .select(".background-image")
-      .transition()
-      .duration(1000)
-      .style("opacity",null)
-      ;
-  }
-  else if(idCount == 1){
-
     year.shiftChart("down")
-
-    d3.select("#year-chart")
-      .select(".background-image")
-      .transition()
-      .duration(1000)
-      .style("opacity",1)
-      ;
+    year.fadeAnnotation(1984)
+    year.changeBackground("https://i.giphy.com/media/26AHrsRVKw5lDjRba/giphy.gif")
   }
   else if(idCount == 2){
     year.shiftChart("up")
     year.highlightRegister(false)
+    year.changeBackground("")
   }
-  console.log(idCount);
   if(idCount == 3){
     year.highlightRegister(true)
     year.compareChart(false,[1984])
+    year.highlightSong(["When Doves Cry"],1984)
   }
 
   if(idCount == 4){
     year.compareChart(true,[1984,2017])
+    year.shiftChart("up")
+    year.highlightRegister(true)
+    year.changeBackground("")
+    year.highlightSong([""],1984)
   }
   if(idCount == 5){
     year.compareChart(false,[1984])
     year.shiftChart("down")
-    year.highlightRegister(false)
-    year.fadeAnnotation(1987)
+    year.fadeAnnotation(1988)
+    year.changeBackground("https://media.giphy.com/media/3ohjURsduh3JdxkV6o/giphy.gif")
+    year.highlightSong([],"none")
   }
+  if(idCount == 6){
+    year.compareChart(false,[1988])
+    year.shiftChart("up")
+    year.fadeAnnotation("none")
+    year.highlightSong(["Sweet Child O' Mine"],1988)
+  }
+  if(idCount == 7){
+    year.shiftChart("down")
+    year.fadeAnnotation(1977)
+    year.changeBackground("https://media.giphy.com/media/xT1Ra5lymPYAYTVM0o/giphy.gif")
+  }
+  if(idCount == 8){
+    year.shiftChart("up")
+    year.compareChart(false,[1977])
+    year.highlightSong(["Got To Give It Up (Pt. I)","We Are The Champions","Sir Duke","Cold As Ice"],1977)
 
+  }
+  if(idCount == 9){
+    year.shiftChart("down")
+    year.fadeAnnotation(1970)
+    year.changeBackground("")
+  }
+  if(idCount == 10){
+    year.shiftChart("up")
+    year.compareChart(false,[1970])
+    year.highlightSong(["The Tears Of A Clown","Cecilia","ABC","I'll Be There","Immigrant Song"],1977)
+  }
+  if(idCount == 11){
+    year.shiftChart("down")
+    year.fadeAnnotation(1962)
+    year.changeBackground("https://media.giphy.com/media/26FxKEkdhEECnwEYE/giphy.gif")
+  }
+  if(idCount == 12){
+    year.fadeAnnotation(2010)
+    year.changeBackground("")
+    year.shiftChart("down")
+  }
+  if(idCount == 13){
+    year.shiftChart("up")
+    year.compareChart(false,[2010])
+    year.highlightSong(["Just The Way You Are","Baby","Grenade","The Lazy Song","U Smile", "Never Let You Go"],2010)
+  }
+  if(idCount == 14){
+    year.shiftChart("down")
+    year.fadeAnnotation(2019)
+    year.filterForTop10(false)
+    year.changeBackground("")
+  }
+  if(idCount == 15){
+    year.filterForTop10(true)
+    year.fadeTopAnnotation("")
+    year.fadeAnnotation("")
+  }
+  if(idCount == 16){
+    year.fadeTopAnnotation(2019)
+    year.shiftChart("down")
+  }
+  if(idCount == 17){
+    year.shiftChart("up")
+    year.compareChart(false,[2019])
+    year.highlightTopOnly(false)
+  }
+  if(idCount == 18){
+    year.highlightTopOnly(true)
+    year.highlightSong(["Talk"],2019)
+    year.shiftChart("up")
+
+  }
+  if(idCount == 19){
+    year.shiftChart("down")
+  }
 
 
 }
@@ -255,12 +397,14 @@ function changeChart(direction){
 
   console.log("changing");
 
-  if(direction == "right"){
+  if(direction == "right" || currentCard < 2){
     currentCard = currentCard + 1;
   }
   else{
     currentCard = Math.max(0,currentCard - 1);
   }
+
+  console.log(currentCard);
 
   currentId = cardNames[currentCard].card;
 
@@ -272,35 +416,55 @@ function changeChart(direction){
     return false;
   });
 
-  if(currentSound){
-    if(currentSound.playing && cardNames[currentCard].audio == "none"){
-      currentSound.fade(1, 0, 1500);
-      window.setTimeout(function(d){
-        if(cardNames[currentCard].audio == "none"){
-          currentSound.stop();
-        }
-      },1500)
-    }
-    else if(currentSound.playing && currentSoundTrack != cardNames[currentCard].audio){
-      currentSound.stop();
-    }
-  }
-
-
-  if(cardNames[currentCard].audio != "none" && currentSoundTrack != cardNames[currentCard].audio){
-    playSound();
-  }
-  else if(cardNames[currentCard].audio == "none") {
+  if(cardNames[currentCard].audio == "none") {
     currentSoundTrack = "none";
+  }
+
+  if(lastAudio){
+    if(lastAudio.playing && cardNames[currentCard].audio == "none"){
+      stopLastAudio()
+    }
+  }
+
+  if(cardNames[currentCard].audio != "none" && currentSoundTrack != cardNames[currentCard].audio) {
+    playSound();
   }
 
   if(currentId == "intro"){
     changeIntro();
   }
-  if(currentId == "jonas"){
-    lyricsCount = 0;
-    playLyrics();
+  else {
+    d3.select(".footer").select(".author").style("display","none")
+    d3.select(".footer").select(".logo").style("display","block")
   }
+
+  var interval = null;
+
+  if(currentId == "jonas" || currentId == "mendes"){
+
+    playLyrics();
+
+    if(interval){
+      clearInterval(interval);
+    }
+    lyricsCount = 0;
+
+    interval = window.setInterval(function(d){
+      var value = lastAudio.seek();
+      if(value > lyricsStamps[lyricsCount + 1]){
+        lyricsCount = lyricsCount + 1;
+        changeWord();
+      }
+    },100)
+
+  }
+  else {
+    clearInterval(interval);
+    interval = null;
+  }
+
+
+
   if(currentId == "beegees"){
     changeBeeGees();
   }
@@ -411,8 +575,84 @@ var cardNames = [
   {
     id:"year-5",
     card:"year-chart",
-    audio:"https://p.scdn.co/mp3-preview/808822c217ebcd3843f6c422de1f3dad8e419595.mp3"
+    audio:"none"
+  },
+  {
+    id:"year-6",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/01c79aa22b13a374980cc1c0c42871b9b77f3038.mp3"
+  },
+  {
+    id:"year-7",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-8",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/760acd645ebaa00533bb73e20627da437a4a5142.mp3"
+  },
+  {
+    id:"year-9",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-10",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/39d220117c9e65f09cda2df24066d1154647f407.mp3"
+  },
+  {
+    id:"year-11",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/3d1e5ad6cca790e85e25396adc39d5506c2bc2ab.mp3"
+  },
+  {
+    id:"year-12",
+    card:"year-chart",
+    audio:""
+  },
+  {
+    id:"year-13",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/a7457c94f24ced0115c865b325e031ea6fb2a964.mp3"
+  },
+  {
+    id:"year-14",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-15",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-16",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-17",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-18",
+    card:"year-chart",
+    audio:"https://p.scdn.co/mp3-preview/2fb54a9c23ec3124319df5739aa081bf9183fa8b.mp3"
+  },
+  {
+    id:"year-19",
+    card:"year-chart",
+    audio:"none"
+  },
+  {
+    id:"year-20",
+    card:"year-chart",
+    audio:"none"
   }
+
 ];
 
 var cardSequence = null;
@@ -420,30 +660,37 @@ var currentCard = 0;
 var currentId = "intro"
 var currentSound = null;
 var currentSoundTrack = "none";
+var lastAudio = null;
+function stopLastAudio() {
+  if (!lastAudio) return
+  lastAudio.stop()
+}
+
 
 function playSound(){
 
-  console.log("playing song");
 
-  currentSound = new Howl({
+  const newSound = new Howl({
     src: [cardNames[currentCard].audio],
     volume:1,
-    loop:true,
-    onend: function(){
-      console.log("finished");
-    }
+    html5: true,
+    loop:false
+    // ,
+    // onLoad: function(){
+    //   console.log("here");
+    //   if(currentSoundTrack == cardNames[currentCard].audio){
+    //     newSound.play();
+    //     lastAudio = audio
+    //   }
+    // }
   });
   currentSoundTrack = cardNames[currentCard].audio
+  stopLastAudio()
+  newSound.play();
+  lastAudio = newSound
 
-  var id1 = currentSound.play();
-  currentSound.fade(0, 1, 500, id1);
-  window.setInterval(function(d){
-    var value = currentSound.seek();
-    if(value > lyricsStamps[lyricsCount + 1]){
-      lyricsCount = lyricsCount + 1;
-      changeWord();
-    }
-  },100)
+
+
 }
 
 function init(data) {
@@ -453,10 +700,6 @@ function init(data) {
     var direction = d3.select(this).attr("class");
     changeChart(direction)
   })
-
-  if(cardNames[currentCard].audio != "none"){
-    playSound();
-  }
 
   playLyrics();
 }
