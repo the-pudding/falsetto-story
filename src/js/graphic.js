@@ -133,8 +133,6 @@ function playLyrics(){
     lyrics = lyricsJonas;
   }
 
-
-
   lyricsContainer = d3.select("#"+currentId).select(".lyric")
   lyricsContainer.select("p").text(function(d){
     if(currentId == "jonas"){
@@ -143,6 +141,7 @@ function playLyrics(){
     return "about"
   });
   lyricsStamps = lyrics.map(function(d){return d[1]});
+
   lyricsContainer
     .style("bottom",yScale(lyrics[lyricsCount][2])+"%")
     .select("p")
@@ -150,9 +149,6 @@ function playLyrics(){
     .style("transform","scale("+scale(lyrics[lyricsCount][2])+")")
     .style("color",d3.interpolateCool(lyrics[lyricsCount][2]/10))
     ;
-
-    console.log(lyricsContainer.node());
-
 }
 
 function changeWord(){
@@ -677,30 +673,27 @@ window.onblur = function() {
 };
 
 function playSound(){
+  stopLastAudio()
 
   const newSound = new Howl({
     src: [cardNames[currentCard].audio],
     volume:.8,
-    html5: true,
+    html5: false,
     loop:false
-    // ,
-    // onLoad: function(){
-    //   console.log("here");
-    //   if(currentSoundTrack == cardNames[currentCard].audio){
-    //     newSound.play();
-    //     lastAudio = audio
-    //   }
+    ,
+    onload: function(d){
+      console.log("loaded"+cardNames[currentCard].id);
+      var thisSource = this._src;
+      if(cardNames[currentCard].audio == thisSource){
+        currentSoundTrack = cardNames[currentCard].audio
+        newSound.play();
+        lastAudio = newSound
+      }
     }
-
   });
-  currentSoundTrack = cardNames[currentCard].audio
-  stopLastAudio()
-  newSound.play();
-  lastAudio = newSound
-
-
-
 }
+
+var outroVisible = false;
 
 function init(data) {
   cardSequence = cardNames.map(function(d){return d.id});
@@ -710,7 +703,26 @@ function init(data) {
     changeChart(direction)
   })
 
-  playLyrics();
+  d3.select(".about").on("click",function(d){
+    if(!outroVisible){
+      d3.select(this).select(".circle").text("X");
+
+      d3.selectAll(".card").classed("is-visible",function(d){
+        var cardId = d3.select(this).attr("id");
+        if(cardId == "outro"){
+          outroVisible = true;
+          return true
+        }
+        return false;
+      });
+    }
+    else {
+      changeChart("left")
+      d3.select(this).select(".circle").text("?");
+      outroVisible = false;
+    }
+  })
+
 }
 
 export default { init, resize };
