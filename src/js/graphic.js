@@ -135,7 +135,7 @@ function playLyrics(){
 
 
 
-  lyricsContainer = d3.select("#"+currentId).select(".lyrics").select(".lyric")
+  lyricsContainer = d3.select("#"+currentId).select(".lyric")
   lyricsContainer.select("p").text(function(d){
     if(currentId == "jonas"){
       return "you"
@@ -168,12 +168,12 @@ function changeWord(){
     ;
 
   if(lyricsCount > 0 && lyrics[lyricsCount][2] > lyrics[lyricsCount - 1][2]){
-    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-down").style("display","none")
-    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-up").style("display","block")
+    d3.select("#"+currentId).select(".lyric").select(".arrow-down").style("display","none")
+    d3.select("#"+currentId).select(".lyric").select(".arrow-up").style("display","block")
   }
   else if (lyricsCount > 0 && lyrics[lyricsCount][2] < lyrics[lyricsCount - 1][2]){
-    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-down").style("display","block")
-    d3.select("#"+currentId).select(".lyrics").select(".lyric").select(".arrow-up").style("display","none")
+    d3.select("#"+currentId).select(".lyric").select(".arrow-down").style("display","block")
+    d3.select("#"+currentId).select(".lyric").select(".arrow-up").style("display","none")
   }
   // else if(lyricsCount > 0 && lyrics[lyricsCount][2] == lyrics[lyricsCount - 1][2]){
   //   d3.select("#jonas").select(".lyrics").select(".lyric").select(".arrow-down").style("display","none")
@@ -384,7 +384,6 @@ function changeYearChart(){
     year.highlightTopOnly(true)
     year.highlightSong(["Talk"],2019)
     year.shiftChart("up")
-
   }
   if(idCount == 19){
     year.shiftChart("down")
@@ -666,6 +665,9 @@ function stopLastAudio() {
   lastAudio.stop()
 }
 
+window.onblur = function() {
+    stopLastAudio();
+};
 
 function playSound(){
 
@@ -673,7 +675,7 @@ function playSound(){
   const newSound = new Howl({
     src: [cardNames[currentCard].audio],
     volume:1,
-    html5: true,
+    html5: false,
     loop:false
     // ,
     // onLoad: function(){
