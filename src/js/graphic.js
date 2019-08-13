@@ -384,8 +384,6 @@ function changeYearChart(){
   if(idCount == 17){
     year.shiftChart("down")
   }
-
-
 }
 
 function changeChart(direction){
@@ -646,8 +644,8 @@ var cardNames = [
     audio:"none"
   },
   {
-    id:"year-18",
-    card:"year-chart",
+    id:"vid-1",
+    card:"video-section",
     audio:"none"
   },
   {
