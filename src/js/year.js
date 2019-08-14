@@ -153,7 +153,6 @@ function highlightTopOnly(toggle){
 }
 
 function compareChart(toggle,years){
-  console.log(years);
   yearColumns.classed("minify",toggle)
   yearColumns.selectAll(".year-col").transition().duration(0).style("display",function(d){
     if(years.indexOf(+d.key) > -1){

@@ -276,8 +276,6 @@ function changeYearChart(){
     return 0;
   })
 
-  console.log(idCount);
-
   if(idCount == 0){
     year.fadeAnnotation(2019)
     year.fadeInLine();
@@ -388,7 +386,10 @@ function changeYearChart(){
 
 function changeChart(direction){
 
-  console.log("changing");
+  if(outroVisible){
+    outroVisible = false;
+    d3.select(".about").select(".circle").text("?");
+  }
 
   if(direction == "right" || currentCard < 2){
     currentCard = currentCard + 1;
@@ -396,8 +397,6 @@ function changeChart(direction){
   else{
     currentCard = Math.max(0,currentCard - 1);
   }
-
-  console.log(currentCard);
 
   currentId = cardNames[currentCard].card;
 
@@ -680,7 +679,6 @@ function playSound(){
     html5: false,
     loop:false,
     onload: function(d){
-      console.log("loaded"+cardNames[currentCard].id);
       var thisSource = this._src;
       if(cardNames[currentCard].audio == thisSource){
         currentSoundTrack = cardNames[currentCard].audio
