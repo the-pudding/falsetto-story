@@ -134,11 +134,12 @@ function playLyrics(){
   }
 
   lyricsContainer = d3.select("#"+currentId).select(".lyric")
-  lyricsContainer.select("p").text(function(d){
-    if(currentId == "jonas"){
-      return "you"
-    }
-    return "about"
+  lyricsContainer.select("p").style("pointer-events","none").text(function(d){
+    return ""
+    // if(currentId == "jonas"){
+    //   return "you"
+    // }
+    // return "about"
   });
 
   lyricsContainer.node().addEventListener('touchstart', function(e){
@@ -168,13 +169,13 @@ function playLyrics(){
 
   lyricsStamps = lyrics.map(function(d){return d[1]});
 
-  lyricsContainer
-    .style("bottom",yScale(lyrics[lyricsCount][2])+"%")
-    .select("p")
-    .text(lyrics[lyricsCount][0])
-    .style("transform","scale("+scale(lyrics[lyricsCount][2])+")")
-    .style("color",d3.interpolateCool(lyrics[lyricsCount][2]/10))
-    ;
+  // lyricsContainer
+  //   .style("bottom",yScale(lyrics[lyricsCount][2])+"%")
+  //   .select("p")
+  //   .text(lyrics[lyricsCount][0])
+  //   .style("transform","scale("+scale(lyrics[lyricsCount][2])+")")
+  //   .style("color",d3.interpolateCool(lyrics[lyricsCount][2]/10))
+  //   ;
 }
 
 function changeWord(){
@@ -432,15 +433,15 @@ function changeChart(direction){
 
   console.log(currentCard);
 
+
+
+  currentId = cardNames[currentCard].card;
   if(currentId == "jonas" || currentId == "mendes" || currentId == "pandora" || currentId == "year-chart" || currentId == "single-year"){
     d3.select("#touch").style("z-index",1000000)
   }
   else {
     d3.select("#touch").style("z-index",null)
   }
-
-  currentId = cardNames[currentCard].card;
-
   d3.selectAll(".card").classed("is-visible",function(d){
     var cardId = d3.select(this).attr("id");
     if(cardId == currentId){
