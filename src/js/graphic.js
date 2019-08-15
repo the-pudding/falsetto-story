@@ -386,13 +386,18 @@ function changeYearChart(){
 
 function changeChart(direction){
 
+  console.log("here");
+
   if(outroVisible){
     outroVisible = false;
     d3.select(".about").select(".circle").text("?");
   }
 
+
   if(direction == "right" || currentCard < 2){
-    currentCard = currentCard + 1;
+    if(cardNames.length-2 >= currentCard){
+      currentCard = currentCard + 1;
+    }
   }
   else{
     currentCard = Math.max(0,currentCard - 1);

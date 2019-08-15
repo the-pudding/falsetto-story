@@ -1,3 +1,25 @@
+.video-holder
+	display block
+	width 100%
+	height 100%
+	max-width 550px
+	max-height 350px
+	margin 0 auto
+
+#video-container
+	position relative
+	padding-bottom 56.25%
+	padding-top 30px
+	height 0
+	overflow hidden
+
+#video-container iframe, #video-container object, #video-container embed
+	position absolute
+	top 0
+	left 0
+	width 100%
+	height 100%
+
 .intro
 	margin 0 auto
 	padding 6rem 1rem 3rem 1rem
@@ -6,19 +28,19 @@
 		max-width 60rem
 		margin 0 auto
 		text-align center
-		
+
 	&__dek
 		max-width $column-width
 		margin 0 auto
 		margin-top 1rem
 		text-align center
-	
+
 	&__byline
 		max-width $column-width
 		margin 0 auto
 		margin-top 1rem
 		text-align center
-	
+
 	&__time
 		display block
 		max-width $column-width
