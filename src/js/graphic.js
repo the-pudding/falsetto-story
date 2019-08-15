@@ -436,12 +436,14 @@ function changeChart(direction){
 
 
   currentId = cardNames[currentCard].card;
+
   if(currentId == "jonas" || currentId == "mendes" || currentId == "pandora" || currentId == "year-chart" || currentId == "single-year"){
     d3.select("#touch").style("z-index",1000000)
   }
   else {
     d3.select("#touch").style("z-index",null)
   }
+
   d3.selectAll(".card").classed("is-visible",function(d){
     var cardId = d3.select(this).attr("id");
     if(cardId == currentId){
