@@ -722,7 +722,7 @@ function stopLastAudio() {
 
 window.onblur = function() {
   console.log("blurring");
-    // stopLastAudio();
+    stopLastAudio();
 };
 
 function playSound(){
