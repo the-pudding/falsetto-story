@@ -116,6 +116,7 @@
 
 #mendes, #jonas
   pointer-events none
+  z-index 0
   .text-element
     pointer-events none
     p
@@ -181,6 +182,7 @@
         pointer-events none
         stroke-width 2px
         display block
+        pointer-events none
         margin 0 auto
         animation-name bounce-6
         animation-timing-function ease
@@ -202,6 +204,7 @@
       transform translate(0,100%)
       svg
         animation-name bounce-5
+        pointer-events none
         animation-timing-function ease
         animation-duration 2s
         animation-iteration-count infinite
@@ -537,11 +540,12 @@
       border-radius 3px
 
 #touch
-  height calc(100% - 30px)
+  height calc(100% - 60px)
   width 100%
   position absolute
   top 0px
   left 0px
+  pointer-events all
   display flex
   .left
     width 25%
@@ -654,7 +658,8 @@ button
   width 100%
   height 100%
   overflow hidden
-  transition 250ms ease-in-about
+  pointer-events none
+  //transition 250ms ease-in-about
   background #282828
   opacity 0
   z-index 0

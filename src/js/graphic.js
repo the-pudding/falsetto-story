@@ -140,6 +140,32 @@ function playLyrics(){
     }
     return "about"
   });
+
+  lyricsContainer.node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+  lyricsContainer.select("p").node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+  lyricsContainer.select(".arrow-up").node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+  lyricsContainer.select(".arrow-up").select("svg").node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+  lyricsContainer.select(".arrow-down").node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+  lyricsContainer.select(".arrow-down").select("svg").node().addEventListener('touchstart', function(e){
+    e.preventDefault();
+  });
+
+
   lyricsStamps = lyrics.map(function(d){return d[1]});
 
   lyricsContainer
@@ -395,14 +421,16 @@ function changeChart(direction){
 
   console.log(currentCard);
 
-  if(direction == "right" || currentCard < 2){
+  if(direction == "right"){
     if(cardNames.length-2 >= currentCard){
       currentCard = currentCard + 1;
     }
   }
   else{
-    currentCard = Math.max(1,currentCard - 1);
+    currentCard = Math.max(0,currentCard - 1);
   }
+
+  console.log(currentCard);
 
   if(currentId == "jonas" || currentId == "mendes" || currentId == "pandora" || currentId == "year-chart" || currentId == "single-year"){
     d3.select("#touch").style("z-index",1000000)
@@ -410,8 +438,6 @@ function changeChart(direction){
   else {
     d3.select("#touch").style("z-index",null)
   }
-
-  console.log(currentCard);
 
   currentId = cardNames[currentCard].card;
 
@@ -427,22 +453,6 @@ function changeChart(direction){
     currentSoundTrack = "none";
   }
 
-  if(lastAudio){
-    if(lastAudio.playing && cardNames[currentCard].audio == "none"){
-      if(cardNames[currentCard-1].audio != cardNames[currentCard].audio){
-        console.log("stopping");
-        console.log(cardNames[currentCard-1].audio, cardNames[currentCard].audio);
-
-        stopLastAudio()
-      }
-    }
-  }
-
-
-  if(cardNames[currentCard].audio != "none" && cardNames[currentCard-1].audio != cardNames[currentCard].audio) {
-    playSound();
-  }
-
   if(currentId == "intro"){
     changeIntro();
   }
@@ -451,50 +461,64 @@ function changeChart(direction){
     d3.select(".footer").select(".logo").style("display","block")
   }
 
-  var interval = null;
+  if(currentCard != 0){
 
-  if(currentId == "jonas" || currentId == "mendes"){
+      if(noiseArray.length > 0){
+        if(cardNames[currentCard].audio == "none"){
+          if(cardNames[currentCard-1].audio != cardNames[currentCard].audio){
+            console.log("stopping");
+            console.log(cardNames[currentCard-1].audio, cardNames[currentCard].audio);
 
-
-
-    playLyrics();
-
-    if(interval){
-      clearInterval(interval);
-    }
-    lyricsCount = 0;
-
-    interval = window.setInterval(function(d){
-      if(lastAudio){
-        var value = lastAudio.seek();
-        if(value > lyricsStamps[lyricsCount + 1]){
-          lyricsCount = lyricsCount + 1;
-          changeWord();
+            stopLastAudio()
+          }
         }
       }
-    },100)
 
-  }
-  else {
-    clearInterval(interval);
-    interval = null;
-  }
+      if(cardNames[currentCard].audio != "none" && cardNames[currentCard-1].audio != cardNames[currentCard].audio) {
+        playSound();
+      }
+
+      var interval = null;
+
+      if(currentId == "jonas" || currentId == "mendes"){
 
 
 
-  if(currentId == "beegees"){
-    changeBeeGees();
-  }
-  if(currentId == "pandora"){
-    changePandora();
-  }
-  if(currentId == "single-year"){
-    changeSingleChart();
-  }
-  if(currentId == "year-chart"){
-    changeYearChart();
-  }
+        playLyrics();
 
+        if(interval){
+          clearInterval(interval);
+        }
+        lyricsCount = 0;
+
+        interval = window.setInterval(function(d){
+          if(noiseArray.length > 0){
+            var value = lastAudio.seek();
+            if(value > lyricsStamps[lyricsCount + 1]){
+              lyricsCount = lyricsCount + 1;
+              changeWord();
+            }
+          }
+        },100)
+
+      }
+      else {
+        clearInterval(interval);
+        interval = null;
+      }
+      if(currentId == "beegees"){
+        changeBeeGees();
+      }
+      if(currentId == "pandora"){
+        changePandora();
+      }
+      if(currentId == "single-year"){
+        changeSingleChart();
+      }
+      if(currentId == "year-chart"){
+        changeYearChart();
+      }
+  }
 
 }
 
@@ -684,40 +708,59 @@ var currentId = "intro"
 var currentSound = null;
 var currentSoundTrack = "none";
 var lastAudio = null;
+var noiseArray = [];
 function stopLastAudio() {
   console.log("stop function");
-  if (!lastAudio) return
-  lastAudio.stop()
+  if (noiseArray.length > 0) {
+    for (var noise in noiseArray){
+      noiseArray[noise].stop();
+    }
+  }
+
+
 }
 
 window.onblur = function() {
   console.log("blurring");
-    stopLastAudio();
+    // stopLastAudio();
 };
 
 function playSound(){
   // if(lastAudio.audio != cardNames[currentCard].audio){
-    stopLastAudio()
   // }
 
   console.log("playing sound");
 
-
-
   const newSound = new Howl({
     src: [cardNames[currentCard].audio],
     volume:.8,
-    html5: true,
-    loop:false,
-    onload: function(d){
-      var thisSource = this._src;
-      if(cardNames[currentCard].audio == thisSource){
-        currentSoundTrack = cardNames[currentCard].audio
-        newSound.play();
-        lastAudio = newSound
-      }
+    // html5: true,
+    loop:false
+    //,
+    //onload: function(d){
+      // var thisSource = this._src;
+      // if(cardNames[currentCard].audio == thisSource){
+      //   currentSoundTrack = cardNames[currentCard].audio
+      //   newSound.play();
+      //   lastAudio = newSound
+      // }
+    })
+
+    // var thisSource = this._src;
+      //cardNames[currentCard].audio == thisSource
+    //   currentSoundTrack = cardNames[currentCard].audio
+    stopLastAudio()
+    newSound.play();
+    noiseArray.push(newSound);
+
+    if(cardNames[currentCard].audio == "https://p.scdn.co/mp3-preview/8b304ee721be5f4235a67722670be137c785de1e.mp3" || cardNames[currentCard].audio == "https://p.scdn.co/mp3-preview/bd54ee94f858ab1213956811d9ecbb000c32c446.mp3"){
+      lastAudio = newSound;
     }
-  });
+
+    //}
+
+
+  //});
 }
 
 var outroVisible = false;
@@ -744,7 +787,8 @@ function init(data) {
       });
     }
     else {
-      changeChart("left")
+      currentCard = currentCard - 1
+      changeChart("right")
       d3.select(this).select(".circle").text("?");
       outroVisible = false;
     }
