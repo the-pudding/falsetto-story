@@ -91,30 +91,41 @@
 
 #pandora
   user-select none
+  pointer-events none
   .text-element
+    pointer-events none
     margin-bottom 1rem
     p
       font-size 18px
+      pointer-events none
       line-height 1.5
       span
         background black
         color white
+        pointer-events none
   .text-light
+    pointer-events none
     p
+      pointer-events none
       span
         background #fff
+        pointer-events none
         color #000
         font-weight 600
 
 
 #mendes, #jonas
+  pointer-events none
   .text-element
+    pointer-events none
     p
       font-size 18px
       line-height 1.5
+      pointer-events none
       span
         color white
         background black
+        pointer-events none
   .text-light
     p
       span
@@ -125,6 +136,7 @@
 #mendes
   .text-light
     margin-top 20px
+    pointer-events none
 @keyframes bounce-6 {
   0%   { transform: scale(1,1)      translateY(0); }
   10%  { transform: scale(1.1,.9)   translateY(0); }
@@ -152,8 +164,10 @@
     flex-grow 1
     overflow hidden
     user-select none
+    pointer-events none
     .arrow
       position absolute
+      pointer-events none
       top -10px
       transform translate(0,-100%)
       z-index 10000
@@ -164,6 +178,7 @@
       user-select none
       svg
         stroke white
+        pointer-events none
         stroke-width 2px
         display block
         margin 0 auto
@@ -174,6 +189,7 @@
       p
         color white
         font-size 12px
+        pointer-events none
         text-align center
         font-weight 600
         text-transform uppercase
@@ -182,6 +198,7 @@
     .arrow-down
       top auto
       bottom -10px
+      pointer-events none
       transform translate(0,100%)
       svg
         animation-name bounce-5
@@ -200,6 +217,7 @@
   bottom 0%
   text-align center
   left 0px
+  pointer-events none
   right 0px
   transition bottom .1s ease-in-out
   p
@@ -208,6 +226,7 @@
     text-transform uppercase
     margin 0 auto
     transition bottom .1s ease-in-out
+    pointer-events none
 
 
 #year-chart
@@ -518,13 +537,12 @@
       border-radius 3px
 
 #touch
-  height 100%
+  height calc(100% - 30px)
   width 100%
   position absolute
   top 0px
   left 0px
   display flex
-  z-index 1
   .left
     width 25%
     height 100%
@@ -548,7 +566,9 @@
         background rgba(255,255,255,.4)
         color rgba(0,0,0,.8)
   .text-light
+    pointer-events none
     p
+      pointer-events none
       span
         background #fff
         color #000
@@ -660,9 +680,12 @@ button
 
 
 .text-light
+  pointer-events none
   p
+    pointer-events none
     span
       background #F2DCE5
+      pointer-events none
       color #221D3D
       font-weight 600
 

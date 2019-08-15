@@ -393,6 +393,7 @@ function changeChart(direction){
     d3.select(".about").select(".circle").text("?");
   }
 
+  console.log(currentCard);
 
   if(direction == "right" || currentCard < 2){
     if(cardNames.length-2 >= currentCard){
@@ -400,8 +401,17 @@ function changeChart(direction){
     }
   }
   else{
-    currentCard = Math.max(0,currentCard - 1);
+    currentCard = Math.max(1,currentCard - 1);
   }
+
+  if(currentId == "jonas" || currentId == "mendes" || currentId == "pandora" || currentId == "year-chart" || currentId == "single-year"){
+    d3.select("#touch").style("z-index",1000000)
+  }
+  else {
+    d3.select("#touch").style("z-index",null)
+  }
+
+  console.log(currentCard);
 
   currentId = cardNames[currentCard].card;
 
@@ -419,9 +429,15 @@ function changeChart(direction){
 
   if(lastAudio){
     if(lastAudio.playing && cardNames[currentCard].audio == "none"){
-      stopLastAudio()
+      if(cardNames[currentCard-1].audio != cardNames[currentCard].audio){
+        console.log("stopping");
+        console.log(cardNames[currentCard-1].audio, cardNames[currentCard].audio);
+
+        stopLastAudio()
+      }
     }
   }
+
 
   if(cardNames[currentCard].audio != "none" && cardNames[currentCard-1].audio != cardNames[currentCard].audio) {
     playSound();
@@ -438,6 +454,8 @@ function changeChart(direction){
   var interval = null;
 
   if(currentId == "jonas" || currentId == "mendes"){
+
+
 
     playLyrics();
 
@@ -667,21 +685,29 @@ var currentSound = null;
 var currentSoundTrack = "none";
 var lastAudio = null;
 function stopLastAudio() {
+  console.log("stop function");
   if (!lastAudio) return
   lastAudio.stop()
 }
 
 window.onblur = function() {
+  console.log("blurring");
     stopLastAudio();
 };
 
 function playSound(){
-  stopLastAudio()
+  // if(lastAudio.audio != cardNames[currentCard].audio){
+    stopLastAudio()
+  // }
+
+  console.log("playing sound");
+
+
 
   const newSound = new Howl({
     src: [cardNames[currentCard].audio],
     volume:.8,
-    html5: false,
+    html5: true,
     loop:false,
     onload: function(d){
       var thisSource = this._src;
