@@ -26,7 +26,7 @@
 		"eslint-config-prettier": "6.0.0",
 		"eslint-plugin-import": "2.18.0",
 		"eslint-plugin-prettier": "3.1.0",
-		"handlebars": "4.1.2",
+		"handlebars": "4.5.3",
 		"imagemin": "7.0.0",
 		"imagemin-mozjpeg": "8.0.0",
 		"imagemin-pngquant": "8.0.0",
